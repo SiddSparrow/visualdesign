@@ -2,13 +2,17 @@ import { TemplateConfig } from '@/types/templates'
 
 export const coachTemplate: TemplateConfig = {
   name: '[Nome] - Coach',
+  logo: '', // Adicionei logo para consistência
   type: 'coach',
   colors: {
     primary: '#DC2626', // Vermelho energético e motivacional
     secondary: '#1E293B',
     accent: '#F87171',
     background: '#FEF2F2',
-    text: '#374151' // Cinza escuro para textos e elementos neutros
+    text: '#444f63ff',
+    blog: '#FEE2E2',
+    testimonials: '#FEF2F2',
+    active: '#B91C1C'
   },
   foto_perfil: '/images/coach_perfil.jpg',
   foto_geral: '/images/coach_geral.jpg',
@@ -24,32 +28,36 @@ export const coachTemplate: TemplateConfig = {
     ctaPrimary: 'Agendar Sessão',
     ctaSecondary: 'WhatsApp'
   },
-  services: [
-    {
-      id: '1',
-      icon: 'Target',
-      title: 'Coaching de Carreira',
-      description: 'Direcionamento profissional e estratégias para alcançar seus objetivos.'
-    },
-    {
-      id: '2',
-      icon: 'TrendingUp',
-      title: 'Coaching de Performance',
-      description: 'Maximize sua produtividade e desempenho pessoal e profissional.'
-    },
-    {
-      id: '3',
-      icon: 'Heart',
-      title: 'Coaching de Vida',
-      description: 'Equilíbrio, propósito e realização em todas as áreas da sua vida.'
-    },
-    {
-      id: '4',
-      icon: 'Users',
-      title: 'Coaching Executivo',
-      description: 'Desenvolvimento de liderança e habilidades de gestão para executivos.'
-    }
-  ],
+  services: {
+    title: 'Serviços de Coaching',
+    subtitle: 'Ofereço diferentes tipos de coaching para atender suas necessidades específicas.',
+    services: [
+      {
+        id: '1',
+        icon: 'Target',
+        title: 'Coaching de Carreira',
+        description: 'Direcionamento profissional e estratégias para alcançar seus objetivos.'
+      },
+      {
+        id: '2',
+        icon: 'TrendingUp',
+        title: 'Coaching de Performance',
+        description: 'Maximize sua produtividade e desempenho pessoal e profissional.'
+      },
+      {
+        id: '3',
+        icon: 'Heart',
+        title: 'Coaching de Vida',
+        description: 'Equilíbrio, propósito e realização em todas as áreas da sua vida.'
+      },
+      {
+        id: '4',
+        icon: 'Users',
+        title: 'Coaching Executivo',
+        description: 'Desenvolvimento de liderança e habilidades de gestão para executivos.'
+      }
+    ]
+  },
   about: {
     title: 'Sobre o Coach',
     description: [
@@ -62,49 +70,68 @@ export const coachTemplate: TemplateConfig = {
       { icon: 'Star', title: '95%', description: 'Taxa de sucesso' }
     ]
   },
-  testimonials: [
-    {
-      id: '1',
-      name: 'Juliana Martins',
-      role: 'Empresária',
-      content: 'O processo de coaching me ajudou a clarear meus objetivos e criar um plano de ação efetivo. Resultados incríveis!',
-      rating: 5
-    },
-    {
-      id: '2',
-      name: 'Roberto Alves',
-      role: 'Executivo',
-      content: 'Profissional excepcional! Me ajudou a desenvolver habilidades de liderança que transformaram minha carreira.',
-      rating: 5
-    },
-    {
-      id: '3',
-      name: 'Fernanda Costa',
-      role: 'Empreendedora',
-      content: 'Coaching transformador! Hoje tenho mais clareza, foco e confiança para alcançar meus sonhos.',
-      rating: 5
-    }
-  ],
-  faq: [
-    {
-      id: '1',
-      question: 'O que é coaching?',
-      answer: 'Coaching é um processo de desenvolvimento pessoal e profissional que te ajuda a alcançar objetivos específicos através de técnicas e ferramentas estruturadas.'
-    },
-    {
-      id: '2',
-      question: 'Quanto tempo dura o processo?',
-      answer: 'Geralmente entre 3 a 6 meses, com sessões semanais ou quinzenais, dependendo do objetivo.'
-    },
-    {
-      id: '3',
-      question: 'Qual a diferença entre coaching e terapia?',
-      answer: 'Coaching é focado no presente e futuro, em objetivos e ações. Terapia trabalha questões emocionais e traumas do passado.'
-    },
-    {
-      id: '4',
-      question: 'Como funcionam as sessões?',
-      answer: 'As sessões são individuais, duram cerca de 1h e podem ser presenciais ou online via videochamada.'
-    }
-  ]
+  testimonials: {
+    title: 'Histórias de Transformação',
+    subtitle: 'O que dizem os clientes que passaram pelo processo de coaching.',
+    testimonials: [
+      {
+        id: '1',
+        name: 'Juliana Martins',
+        role: 'Empresária',
+        content: 'O processo de coaching me ajudou a clarear meus objetivos e criar um plano de ação efetivo. Resultados incríveis!',
+        rating: 5
+      },
+      {
+        id: '2',
+        name: 'Roberto Alves',
+        role: 'Executivo',
+        content: 'Profissional excepcional! Me ajudou a desenvolver habilidades de liderança que transformaram minha carreira.',
+        rating: 5
+      },
+      {
+        id: '3',
+        name: 'Fernanda Costa',
+        role: 'Empreendedora',
+        content: 'Coaching transformador! Hoje tenho mais clareza, foco e confiança para alcançar meus sonhos.',
+        rating: 5
+      }
+    ]
+  },
+  cta: {
+    title: 'Pronto para transformar sua vida?',
+    subtitle: 'Agende sua sessão de coaching e comece sua jornada de crescimento pessoal.',
+    wppText: 'Olá! Gostaria de agendar uma sessão de coaching.'
+  },
+  faq: {
+    text: 'Perguntas frequentes sobre o processo de coaching.',
+    questions: [
+      {
+        id: '1',
+        question: 'O que é coaching?',
+        answer: 'Coaching é um processo de desenvolvimento pessoal e profissional que te ajuda a alcançar objetivos específicos através de técnicas e ferramentas estruturadas.'
+      },
+      {
+        id: '2',
+        question: 'Quanto tempo dura o processo?',
+        answer: 'Geralmente entre 3 a 6 meses, com sessões semanais ou quinzenais, dependendo do objetivo.'
+      },
+      {
+        id: '3',
+        question: 'Qual a diferença entre coaching e terapia?',
+        answer: 'Coaching é focado no presente e futuro, em objetivos e ações. Terapia trabalha questões emocionais e traumas do passado.'
+      },
+      {
+        id: '4',
+        question: 'Como funcionam as sessões?',
+        answer: 'As sessões são individuais, duram cerca de 1h e podem ser presenciais ou online via videochamada.'
+      }
+    ]
+  },
+  blog: {
+    enabled: true,
+    title: 'Artigos sobre Desenvolvimento Pessoal',
+    subtitle: 'Dicas, estratégias e insights para seu crescimento pessoal e profissional.',
+    openInNewPage: false,
+    categories: ['Carreira', 'Produtividade', 'Liderança', 'Metas', 'Crescimento Pessoal']
+  }
 }

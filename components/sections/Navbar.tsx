@@ -24,23 +24,8 @@ export default function Navbar() {
   if(siteConfig.features.blog) {
     menuItems.splice(3, 0, { label: 'Blog', href: '#blog' })
   }
-
-  /* if(checkRoute('artigos')) { isso é apenas caso queira usar rotas diferentes para o blog
-    menuItems.map(item => {
-      if(item.href === '#home') {
-        item.href = '/#home'
-      }else if(item.href === '#about') {
-        item.href = '/#about'
-      }else if(item.href === '#services') {
-        item.href = '/#services'
-      }else if(item.href === '#testimonials') {
-        item.href = '/#testimonials'
-      }else if(item.href === '#contact') {
-        item.href = '/#contact'
-      }
-    })
-  } */
-
+  let logo = false;
+  if(siteConfig.logo != '') logo = true;
   return (
     <nav className="bg-white shadow-sm sticky top-0 z-50">
       <Container>
@@ -52,15 +37,17 @@ export default function Navbar() {
           >
             {siteConfig.name}
           </div> */}
-          <Image
-            src={siteConfig.logo}
-            alt="Logo" 
-            width={70} //configurar manualmente conforme necessidade
-            height={100}
-            /* className="object-contain h-10 w-auto max-w-[150px]"  */// Classes adicionadas
-            priority
-          />
-
+          {logo && (
+            <Image
+              src={siteConfig.logo}
+              alt="Logo" 
+              width={70} //configurar manualmente conforme necessidade
+              height={100}
+              /* className="object-contain h-10 w-auto max-w-[150px]"  */// Classes adicionadas
+              priority
+            />
+          )}
+              
           {/* Desktop Menu */}
           <div className="hidden md:flex space-x-8">
             {menuItems.map((item) => (

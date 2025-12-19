@@ -1,6 +1,4 @@
 
-import { title } from 'process';
-
 export interface SiteConfig {
   name: string
   logo: string
