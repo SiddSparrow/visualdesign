@@ -1,0 +1,67 @@
+import Container from '@/components/ui/Container'
+import FadeIn from '@/components/ui/FadeIn'
+import { template, siteConfig } from '@/lib/site-config'
+import * as LucideIcons from 'lucide-react'
+
+export default function About() {
+  const getIcon = (iconName: string) => {
+    const icons = LucideIcons as any
+    return icons[iconName] || LucideIcons.HelpCircle
+  }
+
+  return (
+    <section id="about" className="py-20 bg-gray-50">
+      <Container>
+        <div className="grid md:grid-cols-2 gap-12 items-center">
+          <FadeIn direction="left">
+            <div className="relative h-[500px] bg-gradient-to-br from-gray-200 to-gray-300 rounded-2xl overflow-hidden shadow-xl">
+              <div className="w-full h-full flex items-center justify-center text-gray-400">
+                {template.type === 'barbeiro' ? 'Foto da Barbearia' : 'Foto Profissional'}
+              </div>
+            </div>
+          </FadeIn>
+
+          <div className="space-y-6">
+            <FadeIn delay={0.2}>
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
+                {template.about.title}
+              </h2>
+            </FadeIn>
+            
+            {template.about.description.map((paragraph, index) => (
+              <FadeIn key={index} delay={0.3 + (index * 0.1)}>
+                <p className="text-lg text-gray-600">
+                  {paragraph}
+                </p>
+              </FadeIn>
+            ))}
+
+            <div className="grid grid-cols-3 gap-6 pt-6">
+              {template.about.credentials.map((credential, index) => {
+                const IconComponent = getIcon(credential.icon)
+                
+                return (
+                  <FadeIn key={index} delay={0.5 + (index * 0.1)}>
+                    <div className="text-center group">
+                      <div 
+                        className="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3 transition-transform duration-300 group-hover:scale-110"
+                        style={{ backgroundColor: `${siteConfig.colors.primary}20` }}
+                      >
+                        <IconComponent 
+                          className="w-6 h-6" 
+                          style={{ color: siteConfig.colors.primary }}
+                        />
+                      </div>
+                      <div className="font-bold text-gray-900">{credential.title}</div>
+                      <div className="text-sm text-gray-600">{credential.description}</div>
+                    </div>
+                  </FadeIn>
+                )
+              })}
+            </div>
+          </div>
+        </div>
+      </Container>
+    </section>
+  )
+}
