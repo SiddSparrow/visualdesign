@@ -10,9 +10,7 @@ import Image from 'next/image'
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
-  function checkRoute(rota: string) {
-    return window.location.pathname.includes(rota)
-  }
+
   const menuItems = [
     { label: 'Início', href: '#home' },
     { label: 'Sobre', href: '#about' },

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Container from '@/components/ui/Container'
 import FadeIn from '@/components/ui/FadeIn'
@@ -8,8 +8,19 @@ import { template, siteConfig } from '@/lib/site-config'
 import { BlogPost } from '@/types/blog'
 import { ChevronDown, Clock, Calendar } from 'lucide-react'
 
+interface Category {
+  _id: string
+  title: string
+  slug: string
+}
+
 interface BlogProps {
-  posts: BlogPost[]
+  posts: Array<{
+    _id: string
+    title: string
+    categories?: Category[]
+  }>
+  categories?: Category[]
 }
 
 export default function Blog({ posts }: BlogProps) {
@@ -18,14 +29,25 @@ export default function Blog({ posts }: BlogProps) {
 
   if (!template.blog.enabled) return null
 
+  // Usar categorias do Sanity se disponíveis, senão usar do template
+  const filteredPosts = useMemo(() => {
+    if (selectedCategory === 'all' || !selectedCategory) {
+      return posts
+    }
+    
+    return posts.filter(post => 
+      post.categories?.some(category => 
+        category._id === selectedCategory || 
+        category.title === selectedCategory ||
+        category.slug === selectedCategory
+      )
+    )
+  }, [posts, selectedCategory])
+
   const toggleCard = (id: string) => {
     if (template.blog.openInNewPage) return
     setExpandedCard(expandedCard === id ? null : id)
   }
-
-  const filteredPosts = selectedCategory === 'all' 
-    ? posts 
-    : posts.filter(post => post.category === selectedCategory)
 
   return (
     <section id="blog" className="py-20 bg-gradient-to-b from-white to-gray-50" style={{backgroundColor:siteConfig.colors.blog}}>
@@ -40,93 +62,7 @@ export default function Blog({ posts }: BlogProps) {
               {template.blog.subtitle}
             </p>
           </div>
-        </FadeIn>
-
-        {/* Filtro de Categorias */}
-        {template.blog.categories && template.blog.categories.length > 0 && (
-          <FadeIn delay={0.1}>
-            <div className="flex flex-wrap justify-center gap-4 mb-12 px-4" style={{marginTop:"1rem"}}>
-                <button
-                    onClick={() => setSelectedCategory('all')}
-                    className={`
-                    relative
-                    px-6 py-3 
-                    rounded-full 
-                    font-medium 
-                    transition-all 
-                    duration-300 
-                    border
-                    overflow-hidden
-                    group
-                    ${selectedCategory === 'all'
-                        ? 'text-white shadow-lg hover:shadow-xl'
-                        : 'bg-white text-gray-600 hover:text-gray-900 border-gray-200 hover:border-gray-300'
-                    }
-                    `}
-                    style={
-                    selectedCategory === 'all'
-                        ? { 
-                            backgroundColor: siteConfig.colors.active,
-                            borderColor: siteConfig.colors.primary
-                        }
-                        : {}
-                    }
-                >
-                    <span className="relative z-10">Todos</span>
-                    
-                    {/* Efeito de hover sutil */}
-                    {selectedCategory !== 'all' && (
-                    <span 
-                        className="absolute inset-0 bg-gradient-to-r from-transparent via-gray-50 to-transparent 
-                                opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                        style={{ transform: 'translateX(-100%)' }}
-                    />
-                    )}
-                </button>
-                
-                {template.blog.categories.map((category) => (
-                    <button
-                    key={category}
-                    onClick={() => setSelectedCategory(category)}
-                    className={`
-                        relative
-                        px-6 py-3 
-                        rounded-full 
-                        font-medium 
-                        transition-all 
-                        duration-300 
-                        border
-                        overflow-hidden
-                        group
-                        ${selectedCategory === category
-                        ? 'text-white shadow-lg hover:shadow-xl'
-                        : 'bg-white text-gray-600 hover:text-gray-900 border-gray-200 hover:border-gray-300'
-                        }
-                    `}
-                    style={
-                        selectedCategory === category
-                        ? { 
-                            backgroundColor: siteConfig.colors.active,
-                            borderColor: siteConfig.colors.primary
-                            }
-                        : {}
-                    }
-                    >
-                    <span className="relative z-10">{category}</span>
-                    
-                    {/* Efeito de hover sutil */}
-                    {selectedCategory !== category && (
-                        <span 
-                        className="absolute inset-0 bg-gradient-to-r from-transparent via-gray-50 to-transparent 
-                                    opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                        style={{ transform: 'translateX(-100%)' }}
-                        />
-                    )}
-                    </button>
-                ))}
-                </div>
-          </FadeIn>
-        )}
+        </FadeIn> 
 
         {/* Blog Grid */}
         <FadeIn delay={0.2}>
@@ -188,26 +124,6 @@ function BlogCard({
             className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-300"
             style={{ backgroundColor: siteConfig.colors.primary }}
           />
-          
-          {/* Reading Time Badge */}
-          {post.readingTime && (
-            <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-full flex items-center gap-2 shadow-sm">
-              <Clock size={14} style={{ color: siteConfig.colors.primary }} />
-              <span className="text-sm font-medium text-gray-700">
-                {post.readingTime} min
-              </span>
-            </div>
-          )}
-
-          {/* Category Badge */}
-          {post.category && (
-            <div 
-              className="absolute top-4 left-4 px-3 py-1 rounded-full text-sm font-semibold text-white shadow-sm"
-              style={{ backgroundColor: siteConfig.colors.primary }}
-            >
-              {post.category}
-            </div>
-          )}
         </div>
       )}
 

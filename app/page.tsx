@@ -1,4 +1,4 @@
-import { getPosts } from '@/lib/sanity/queries'
+import { getPosts, getCategories } from '@/lib/sanity/queries'
 import Navbar from '@/components/sections/Navbar'
 import Hero from '@/components/sections/Hero'
 import Services from '@/components/sections/Services'
@@ -14,10 +14,11 @@ import { siteConfig } from '@/lib/site-config'
 
 export default async function Home() {
   let posts = []
-  
+ // let categories: string[] =[]
   if (siteConfig.features.blog) {
     try {
       posts = await getPosts()
+       //categories = await getCategories()
     } catch (error) {
       console.error('Erro ao buscar posts:', error)
     }
@@ -34,6 +35,7 @@ export default async function Home() {
       {siteConfig.features.blog && (
         <Blog 
           posts={posts} 
+         // categories={categories}
         />
       )}
       

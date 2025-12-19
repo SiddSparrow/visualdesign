@@ -77,6 +77,17 @@ export const post = defineType({
         },
       ],
     }),
+
+    defineField({
+      name: 'categories',
+      title: 'Categorias',
+      type: 'array',
+      of: [{ type: 'string' }],
+      options: {
+        layout: 'tags',
+      },
+      validation: (Rule: any) => Rule.required().min(1),
+    })
   ]
 })
 

@@ -6,7 +6,11 @@ export interface BlogPost {
   content: string
   image?: string
   publishedAt: string
-  category?: string
+  categories?: Array<{ // ← Agora é array de objetos
+    _id: string
+    title: string
+    slug: string
+  }>
   author?: {
     name: string
     image?: string
@@ -16,4 +20,10 @@ export interface BlogPost {
 
 export interface BlogProps {
   posts: BlogPost[]
+  categories?: Array<{
+    _id: string
+    title: string
+    slug: string
+  }>
 }
+

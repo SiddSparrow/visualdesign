@@ -1,6 +1,8 @@
 // lib/sanity/queries.ts
 import { groq } from 'next-sanity'
 import { sanityClient } from '../sanity' // Usando seu client existente
+import { client } from '../../sanity/client'
+import { BlogPost } from '@/types/blog'
 
 // Query para buscar todos os posts do blog
 export const postsQuery = groq`
@@ -13,6 +15,10 @@ export const postsQuery = groq`
     "image": mainImage.asset->url,
     publishedAt,
     "readingTime": round(length(pt::text(body)) / 5 / 180),
+    "categories": categories[]->{
+      _id,
+      title,
+    },
     author->{
       name,
       "image": image.asset->url
@@ -37,6 +43,15 @@ export const postQuery = groq`
     }
   }
 `
+// Para pegar apenas as categorias (únicas):
+export const categoriesQuery = groq`
+  *[_type == "category"] | order(title asc) {
+    _id,
+    title,
+    "slug": slug.current,
+    "postCount": count(*[_type == "post" && references(^._id)])
+  }
+`
 
 // Função para buscar todos os posts
 export async function getPosts() {
@@ -47,6 +62,41 @@ export async function getPosts() {
 export async function getPost(slug: string) {
   return await sanityClient.fetch(postQuery, { slug })
 }
+
+
+// Função para buscar todas as categorias
+export async function getCategories(): Promise<string[]> {
+  try {
+    const categories = await sanityClient.fetch<string[]>(categoriesQuery)
+    return categories || []
+  } catch (error) {
+    console.error('Error fetching categories:', error)
+    return []
+  }
+}
+export async function getPostsByCategory(category: string, limit?: number): Promise<BlogPost[]> {
+  const query = `*[_type == "post" && $category in categories] | order(publishedAt desc) ${limit ? `[0...${limit}]` : ''} {
+    _id,
+    _createdAt,
+    title,
+    slug,
+    author,
+    mainImage,
+    categories,
+    publishedAt,
+    excerpt,
+    body
+  }`
+
+  try {
+    return await client.fetch(query, { category })
+  } catch (error) {
+    console.error('Error fetching posts by category:', error)
+    return []
+  }
+}
+
+
 
 // sanity/schemas/post.ts
 export default {
