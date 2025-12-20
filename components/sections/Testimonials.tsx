@@ -55,7 +55,7 @@ export default function Testimonials() {
 
     const slideVariants = {
         enter: (direction: number) => ({
-            x: direction > 0 ? 1000 : -1000,
+            x: direction > 0 ? 300 : -300,
             opacity: 0
         }),
         center: {
@@ -63,7 +63,7 @@ export default function Testimonials() {
             opacity: 1
         },
         exit: (direction: number) => ({
-            x: direction < 0 ? 1000 : -1000,
+            x: direction < 0 ? 300 : -300,
             opacity: 0
         })
     }
@@ -78,7 +78,7 @@ export default function Testimonials() {
                 <div className="text-center mb-16">
                     <h2
                         className="text-3xl md:text-4xl font-bold mb-4"
-                        style={{ color: siteConfig.colors.text }}
+                        style={{ color: 'black'/* siteConfig.colors.text */ }}
                     >
                         {siteConfig.Testimonials.title}
                     </h2>
@@ -93,7 +93,7 @@ export default function Testimonials() {
                     onMouseLeave={handleMouseLeave}
                 >
                     {/* Container do Slide */}
-                    <div className="relative min-h-[450px]  pb-8">
+                    <div className="relative min-h-[450px] pb-8 overflow-hidden px-4 md:px-20">
                         <AnimatePresence initial={false} custom={direction} mode="wait">
                             <motion.div
                                 key={currentIndex}
@@ -103,13 +103,13 @@ export default function Testimonials() {
                                 animate="center"
                                 exit="exit"
                                 transition={{
-                                    x: { type: "spring", stiffness: 300, damping: 30 },
-                                    opacity: { duration: 0.2 }
+                                    x: { type: "spring", stiffness: 400, damping: 40 },
+                                    opacity: { duration: 0.15 }
                                 }}
                                 className="w-full"
                             >
                                 {/* Wrapper com position relative para os botões */}
-                                <div className="relative bg-white p-8 md:p-12 rounded-2xl shadow-lg mx-4">
+                                <div className="relative bg-white p-8 md:p-12 rounded-2xl shadow-lg">
                                     <Quote
                                         className="w-12 h-12 mb-6"
                                         style={{ color: siteConfig.colors.primary }}
@@ -137,20 +137,20 @@ export default function Testimonials() {
                                     {/* Botões DENTRO do card para ficarem centralizados nele */}
                                     <button
                                         onClick={prevSlide}
-                                        className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-16 bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-all hover:scale-110 z-10"
+                                        className="absolute left-2 md:left-0 top-1/2 -translate-y-1/2 md:-translate-x-16 bg-white rounded-full p-2 md:p-3 shadow-lg hover:shadow-xl transition-all hover:scale-110 z-10"
                                         style={{ color: siteConfig.colors.primary }}
                                         aria-label="Anterior"
                                     >
-                                        <ChevronLeft size={24} />
+                                        <ChevronLeft size={20} className="md:w-6 md:h-6" />
                                     </button>
 
                                     <button
                                         onClick={nextSlide}
-                                        className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-16 bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-all hover:scale-110 z-10"
+                                        className="absolute right-2 md:right-0 top-1/2 -translate-y-1/2 md:translate-x-16 bg-white rounded-full p-2 md:p-3 shadow-lg hover:shadow-xl transition-all hover:scale-110 z-10"
                                         style={{ color: siteConfig.colors.primary }}
                                         aria-label="Próximo"
                                     >
-                                        <ChevronRight size={24} />
+                                        <ChevronRight size={20} className="md:w-6 md:h-6" />
                                     </button>
                                 </div>
                             </motion.div>
@@ -158,7 +158,7 @@ export default function Testimonials() {
                     </div>
 
                     {/* Indicadores permanecem fora */}
-                    <div className="flex justify-center gap-2 mt-8">
+                    <div className="flex justify-center gap-2 mt-8 pb-4">
                         {testimonials.map((_, index) => (
                             <button
                                 key={index}

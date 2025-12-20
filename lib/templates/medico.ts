@@ -2,7 +2,7 @@ import { TemplateConfig } from '@/types/templates'
 import { title } from 'process'
 
 export const medicoTemplate: TemplateConfig = {
-  name: 'Dr. [Nome]',
+  name: 'Dr. João',
   logo: '/images/medico_logo.png',
   type: 'medico',
   colors: {
@@ -32,7 +32,7 @@ export const medicoTemplate: TemplateConfig = {
   services: {
     title: "Como Posso Ajudar",
     subtitle: "Oferecemos atendimento especializado e humanizado.",
-    services:[
+    services: [
       {
         id: '1',
         icon: 'Stethoscope',
@@ -60,15 +60,15 @@ export const medicoTemplate: TemplateConfig = {
     ]
   },
   about: {
-    title: 'Sobre o Médico',
+    title: 'Sobre o Dr. João',
     description: [
-      'Formado pela [Universidade], com especialização em [Especialidade] e mais de [X] anos de experiência no atendimento de pacientes.',
-      'Minha prática é baseada em evidências científicas, sempre priorizando o cuidado humanizado e a relação médico-paciente.'
+      'Formado pela Faculdade de Medicina da Universidade de São Paulo (FMUSP), com Residência Médica em Otorrinolaringologia pela Santa Casa de São Paulo e mais de 12 anos de experiência no atendimento clínico e cirúrgico de pacientes.',
+      'Sua prática é baseada nas mais atuais evidências científicas, sempre priorizando o cuidado humanizado e a construção de uma relação de confiança e transparência com cada paciente. Participa anualmente de congressos internacionais para se manter atualizado.'
     ],
     credentials: [
-      { icon: 'Award', title: 'CRM 00000', description: 'Registro ativo' },
-      { icon: 'BookOpen', title: '10+ Anos', description: 'De experiência' },
-      { icon: 'Users', title: '1000+', description: 'Pacientes atendidos' }
+      { icon: 'Award', title: 'CRM-SP 123.456', description: 'Registro ativo no Conselho Regional de Medicina' },
+      { icon: 'BookOpen', title: '12+ Anos', description: 'De experiência clínica e cirúrgica' },
+      { icon: 'Users', title: '4.500+', description: 'Procedimentos realizados' }
     ]
   },
   testimonials: {
