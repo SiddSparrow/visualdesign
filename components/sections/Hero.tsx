@@ -1,5 +1,5 @@
 'use client'
-
+import {useState, useEffect } from 'react'
 import Container from '@/components/ui/Container'
 import Button from '@/components/ui/Button'
 import FadeIn from '@/components/ui/FadeIn'
@@ -9,6 +9,19 @@ import Image from 'next/image'
 import useProcessTitle from '@/hooks/templateFunctions'
 
 export default function Hero() {
+    const [isMobile, setIsMobile] = useState(false)
+
+      useEffect(() => {
+            const checkMobile = () => {
+            setIsMobile(window.innerWidth < 768)
+            }
+            
+            checkMobile()
+            window.addEventListener('resize', checkMobile)
+            
+            return () => window.removeEventListener('resize', checkMobile)
+        }, [])
+
     const handleAgendarClick = () => {
         window.location.href = '#contact'
     }
@@ -20,26 +33,24 @@ export default function Hero() {
         )
     }
 
-   
-
-    const imageUrl = template.foto_geral || '/images/placeholder.jpg'
 
     return (
-        <section id="home" className="relative min-h-screen py-20 md:py-32 overflow-hidden">
+        <section id="home" className="relative py-20 md:py-32 overflow-hidden">
             {/* Imagem de background que ocupa toda a tela */}
             <div className=" inset-0 z-0">
-
-                <Image
-                    src={imageUrl}
-                    alt="Background"
-                    fill
-                    className="object-cover"
-                    priority
-                    quality={90}
-                    sizes="100vw"
-                />
-
-
+                <div className=" h-full w-full">
+                    <img
+                        src={template.foto_geral}
+                        alt="Background"
+                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-300"
+                        style={{
+                            transform: isMobile ? 'scale(1.2)' : 'scale(1)',
+                            objectPosition: isMobile ? '75% 40%' : 'center center'
+                        }}
+                    />
+                </div>
+                    
+             
                 {/* Overlay para melhor contraste do texto */}
                 <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />

@@ -29,7 +29,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR" className="scroll-smooth">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className} style={{backgroundColor:'transparent'}}>{children}</body>
     </html>
   );
 }

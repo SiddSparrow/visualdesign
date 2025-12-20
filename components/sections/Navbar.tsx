@@ -7,6 +7,7 @@ import { siteConfig } from '@/lib/site-config'
 import { menu } from 'framer-motion/client'
 import { MenuItemBuilder } from 'sanity/structure'
 import Image from 'next/image'
+import { motion, AnimatePresence } from 'framer-motion'
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
@@ -29,12 +30,6 @@ export default function Navbar() {
       <Container>
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          {/* <div 
-            className="text-xl font-bold"
-            style={{ color: siteConfig.colors.primary }}
-          >
-            {siteConfig.name}
-          </div> */}
           {logo && (
             <Image
               src={siteConfig.logo}
@@ -80,26 +75,47 @@ export default function Navbar() {
         </div>
 
         {/* Mobile Menu */}
-        {isOpen && (
-          <div className="md:hidden py-4 space-y-4">
-            {menuItems.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                className="block text-gray-700 hover:text-blue-600 transition-colors"
-                onClick={() => setIsOpen(false)}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.color = siteConfig.colors.primary
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.color = '#374151'
-                }}
-              >
-                {item.label}
-              </a>
-            ))}
-          </div>
-        )}
+         <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ 
+                duration: 0.3, 
+                ease: [0.4, 0, 0.2, 1] // Curva de animação suave
+              }}
+              className="md:hidden overflow-hidden"
+            >
+              <div className="py-4 space-y-2">
+                {menuItems.map((item, index) => (
+                  <motion.a
+                    key={item.href}
+                    href={item.href}
+                    className="block text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-50 transition-colors backdrop-blur-sm"
+                    onClick={() => setIsOpen(false)}
+                    initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    transition={{ 
+                      duration: 0.2,
+                      delay: index * 0.05, // Cada item aparece com um pequeno delay
+                      ease: 'easeOut'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.color = siteConfig.colors.primary
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.color = '#374151'
+                    }}
+                  >
+                    {item.label}
+                  </motion.a>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </Container>
     </nav>
   )

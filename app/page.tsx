@@ -10,7 +10,8 @@ import Contact from '@/components/sections/Contact'
 import Footer from '@/components/sections/Footer'
 import WhatsAppButton from '@/components/ui/WhatsAppButton'
 import Blog from '@/components/sections/Blog'
-import { siteConfig } from '@/lib/site-config'
+import { siteConfig, template } from '@/lib/site-config'
+import SectionDivider from '@/components/ui/SectionDivider'
 
 export default async function Home() {
   let posts = []
@@ -29,7 +30,9 @@ export default async function Home() {
       <Navbar />
       <Hero />
       <Services />
+      {/* <SectionDivider type="wave" toColor="#F9FAFB" fromColor='#F9FAFB' background='white'/> */}
       <About />
+      {/* <SectionDivider type="wave" toColor='black' fromColor='transparent' background='#F9FAFB'/> */}
       
       {/* Use && para renderização condicional no JSX */}
       {siteConfig.features.blog && (
@@ -38,7 +41,7 @@ export default async function Home() {
          // categories={categories}
         />
       )}
-      
+      {/* <SectionDivider type="wave" toColor={siteConfig.colors.testimonials} fromColor='' background={siteConfig.colors.blog}/> */}
       <Testimonials />
       <FAQ />
       <CTA />

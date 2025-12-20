@@ -15,7 +15,7 @@ export const coachTemplate: TemplateConfig = {
     active: '#B91C1C'
   },
   foto_perfil: '/images/coach_perfil.jpg',
-  foto_geral: '/images/coach_geral.jpg',
+  foto_geral: '/images/coach_geral_2.jpg',
   features: {
     blog: true, // Ativar/desativar blog
     testimonials: true,

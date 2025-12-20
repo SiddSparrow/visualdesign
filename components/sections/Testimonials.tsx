@@ -1,50 +1,179 @@
+'use client'
+
+import { useState, useEffect, useRef } from 'react'
 import Container from '@/components/ui/Container'
-import FadeIn from '@/components/ui/FadeIn'
-import { Quote } from 'lucide-react'
+import { Quote, ChevronLeft, ChevronRight } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { template, siteConfig } from '@/lib/site-config'
 
 export default function Testimonials() {
+    const [currentIndex, setCurrentIndex] = useState(0)
+    const [direction, setDirection] = useState(0)
+    const timerRef = useRef<NodeJS.Timeout | null>(null)
+
+    const testimonials = template.testimonials.testimonials
+
+    const autoPlay = false
+    const autoPlayInterval = 5000
+
+    const nextSlide = () => {
+        setDirection(1)
+        setCurrentIndex((prev) => (prev + 1) % testimonials.length)
+    }
+
+    const prevSlide = () => {
+        setDirection(-1)
+        setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length)
+    }
+
+    const goToSlide = (index: number) => {
+        setDirection(index > currentIndex ? 1 : -1)
+        setCurrentIndex(index)
+    }
+
+    useEffect(() => {
+        if (!autoPlay) return
+
+        timerRef.current = setInterval(() => {
+            nextSlide()
+        }, autoPlayInterval)
+
+        return () => {
+            if (timerRef.current) clearInterval(timerRef.current)
+        }
+    }, [autoPlay, autoPlayInterval, currentIndex])
+
+    const handleMouseEnter = () => {
+        if (timerRef.current) clearInterval(timerRef.current)
+    }
+
+    const handleMouseLeave = () => {
+        if (autoPlay) {
+            timerRef.current = setInterval(nextSlide, autoPlayInterval)
+        }
+    }
+
+    const slideVariants = {
+        enter: (direction: number) => ({
+            x: direction > 0 ? 1000 : -1000,
+            opacity: 0
+        }),
+        center: {
+            x: 0,
+            opacity: 1
+        },
+        exit: (direction: number) => ({
+            x: direction < 0 ? 1000 : -1000,
+            opacity: 0
+        })
+    }
+
     return (
-        <section id='testimonials' className="py-20" style={{ backgroundColor: siteConfig.colors.testimonials }}>
+        <section
+            id="testimonials"
+            className="py-20"
+            style={{ backgroundColor: siteConfig.colors.testimonials }}
+        >
             <Container>
-                <FadeIn>
-                    <div className="text-center mb-16">
-                        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4" style={{color:siteConfig.colors.text}}>
-                            {siteConfig.Testimonials.title}
-                        </h2>
-                        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                            {siteConfig.Testimonials.subtitle}
-                        </p>
+                <div className="text-center mb-16">
+                    <h2
+                        className="text-3xl md:text-4xl font-bold mb-4"
+                        style={{ color: siteConfig.colors.text }}
+                    >
+                        {siteConfig.Testimonials.title}
+                    </h2>
+                    <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                        {siteConfig.Testimonials.subtitle}
+                    </p>
+                </div>
+
+                <div
+                    className="relative max-w-4xl mx-auto"
+                    onMouseEnter={handleMouseEnter}
+                    onMouseLeave={handleMouseLeave}
+                >
+                    {/* Container do Slide */}
+                    <div className="relative min-h-[450px]  pb-8">
+                        <AnimatePresence initial={false} custom={direction} mode="wait">
+                            <motion.div
+                                key={currentIndex}
+                                custom={direction}
+                                variants={slideVariants}
+                                initial="enter"
+                                animate="center"
+                                exit="exit"
+                                transition={{
+                                    x: { type: "spring", stiffness: 300, damping: 30 },
+                                    opacity: { duration: 0.2 }
+                                }}
+                                className="w-full"
+                            >
+                                {/* Wrapper com position relative para os botões */}
+                                <div className="relative bg-white p-8 md:p-12 rounded-2xl shadow-lg mx-4">
+                                    <Quote
+                                        className="w-12 h-12 mb-6"
+                                        style={{ color: siteConfig.colors.primary }}
+                                    />
+
+                                    <p className="text-gray-700 text-lg md:text-xl mb-8 italic leading-relaxed">
+                                        "{testimonials[currentIndex].content}"
+                                    </p>
+
+                                    <div className="flex items-center gap-2 mb-6">
+                                        {[...Array(testimonials[currentIndex].rating)].map((_, i) => (
+                                            <span key={i} className="text-yellow-400 text-2xl">★</span>
+                                        ))}
+                                    </div>
+
+                                    <div>
+                                        <div className="font-bold text-gray-900 text-xl">
+                                            {testimonials[currentIndex].name}
+                                        </div>
+                                        <div className="text-gray-600 mt-1">
+                                            {testimonials[currentIndex].role}
+                                        </div>
+                                    </div>
+
+                                    {/* Botões DENTRO do card para ficarem centralizados nele */}
+                                    <button
+                                        onClick={prevSlide}
+                                        className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-16 bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-all hover:scale-110 z-10"
+                                        style={{ color: siteConfig.colors.primary }}
+                                        aria-label="Anterior"
+                                    >
+                                        <ChevronLeft size={24} />
+                                    </button>
+
+                                    <button
+                                        onClick={nextSlide}
+                                        className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-16 bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-all hover:scale-110 z-10"
+                                        style={{ color: siteConfig.colors.primary }}
+                                        aria-label="Próximo"
+                                    >
+                                        <ChevronRight size={24} />
+                                    </button>
+                                </div>
+                            </motion.div>
+                        </AnimatePresence>
                     </div>
-                </FadeIn>
 
-                <div className="grid md:grid-cols-3 gap-8">
-                    {template.testimonials.testimonials.map((testimonial, index) => (
-                        <FadeIn key={testimonial.id} delay={0.1 * (index + 1)}>
-                            <div className="bg-white p-8 rounded-xl shadow-sm hover:shadow-lg 
-                            transition-all duration-300 transform hover:-translate-y-121:58 
-                            h-full min-h-[260px] flex flex-col">
-                                <Quote
-                                    className="w-10 h-10 mb-4"
-                                    style={{ color: siteConfig.colors.primary }}
-                                />
-                                <p className="text-gray-600 mb-6 italic">
-                                    "{testimonial.content}"
-                                </p>
-
-                                <div className="flex items-center gap-1 mb-4">
-                                    {[...Array(testimonial.rating)].map((_, i) => (
-                                        <span key={i} className="text-yellow-400 text-xl">★</span>
-                                    ))}
-                                </div>
-
-                                <div>
-                                    <div className="font-semibold text-gray-900">{testimonial.name}</div>
-                                    <div className="text-sm text-gray-500">{testimonial.role}</div>
-                                </div>
-                            </div>
-                        </FadeIn>
-                    ))}
+                    {/* Indicadores permanecem fora */}
+                    <div className="flex justify-center gap-2 mt-8">
+                        {testimonials.map((_, index) => (
+                            <button
+                                key={index}
+                                onClick={() => goToSlide(index)}
+                                className="w-3 h-3 rounded-full transition-all duration-300"
+                                style={{
+                                    backgroundColor: index === currentIndex
+                                        ? siteConfig.colors.primary
+                                        : '#D1D5DB',
+                                    transform: index === currentIndex ? 'scale(1.2)' : 'scale(1)'
+                                }}
+                                aria-label={`Ir para depoimento ${index + 1}`}
+                            />
+                        ))}
+                    </div>
                 </div>
             </Container>
         </section>

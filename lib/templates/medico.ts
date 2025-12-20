@@ -10,7 +10,7 @@ export const medicoTemplate: TemplateConfig = {
     secondary: '#1E293B',
     accent: '#60A5FA',
     background: '#EFF6FF',
-    text: '#374151',
+    text: ''/* '#374151' */,
     blog: '#DBEAFE',
     testimonials: '#EFF6FF',
     active: '#1D4ED8'
