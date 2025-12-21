@@ -5,22 +5,35 @@ export const coachTemplate: TemplateConfig = {
   logo: '', // Adicionei logo para consistência
   type: 'coach',
   colors: {
-    primary: '#DC2626', // Vermelho energético e motivacional
-    secondary: '#1E293B',
-    accent: '#F87171',
-    background: '#FEF2F2',
-    text: '#444f63ff',
-    blog: '#FEE2E2',
-    testimonials: '#FEF2F2',
-    active: '#B91C1C'
+    navbar: '#1E3A8A',       // Azul corporativo profundo
+
+    services: '#F1F5F9',
+    about: '#FFFFFF',
+    testimonials: '#FFFFFF',
+    faq: '#F1F5F9',
+    cta: '#E5E7EB',
+    contact: '#FFFFFF',
+    footer: '#0F172A',
+    blog: '#F1F5F9',
+
+    // Cores principais
+    primary: '#2563EB',      // Azul confiança (ações principais)
+    secondary: '#475569',    // Cinza executivo
+    accent: '#0F172A',       // Azul quase preto (detalhes fortes)
+    background: '#FFFFFF',
+    text: '#0F172A',
+
+    // Estados
+    active: '#16A34A',       // Verde crescimento / sucesso
   },
   foto_perfil: '/images/coach_perfil.jpg',
-  foto_geral: '/images/coach_geral_2.jpg',
+  foto_geral: '/images/coach_geral.jpg',
   features: {
     blog: true, // Ativar/desativar blog
     testimonials: true,
     faq: true,
-    newsletter: false
+    newsletter: false,
+    cta: false
   },
   hero: {
     title: 'Transforme sua <span>vida</span> e alcance seus <span>objetivos</span>',

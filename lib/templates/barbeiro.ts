@@ -5,14 +5,26 @@ export const barbeiroTemplate: TemplateConfig = {
   logo: '', // Adicionei logo para consistência
   type: 'barbeiro',
   colors: {
-    primary: '#D97706', // Âmbar/dourado mais sofisticado
-    secondary: '#18181B',
-    accent: '#ffffffff',
-    background: '#FFFBEB',
-    text: '#ffffffff',
-    blog: '#FEF3C7',
-    testimonials: '#FFFBEB',
-    active: '#B45309'
+    navbar: '#111111',
+
+    services: '#1A1A1A',
+    about: '#161616',
+    testimonials: '#161616',
+    faq: '#1A1A1A',
+    cta: '#0F0F0F',
+    contact: '#161616',
+    footer: '#0F0F0F',
+    blog: '#1A1A1A',
+
+    // Cores principais
+    primary: '#B87333',     // Bronze / cobre
+    secondary: '#3A3A3A',   // Grafite
+    accent: '#111111',
+    background: '#0F0F0F',
+    text: '#E5E5E5',
+
+    // Estados
+    active: '#C0843D',
   },
   foto_perfil: '/images/barbeiro_perfil.jpg',
   foto_geral: '/images/barbeiro_geral.jpg',
@@ -20,7 +32,8 @@ export const barbeiroTemplate: TemplateConfig = {
     blog: true, // Ativar/desativar blog
     testimonials: true,
     faq: true,
-    newsletter: false
+    newsletter: false,
+    cta: false
   },
   hero: {
     title: 'Estilo e <span>tradição</span> em cada corte',

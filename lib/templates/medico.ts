@@ -6,36 +6,27 @@ export const medicoTemplate: TemplateConfig = {
   logo: '/images/medico_logo.png',
   type: 'medico',
   colors: {
-    // Cores de seção (tons de azul e verde médicos)
 
-    //navbar: '#1E40AF', // Azul escuro (confiança, profissionalismo)
-    /* services: '#3B82F6', // Azul médio (calma, confiança)
-    about: '#0EA5E9', // Azul céu (esperança, clareza)
-    testimonials: '#1E40AF', // Azul escuro (estabilidade)
-    faq: '#0EA5E9', // Azul céu
-    cta: '#10B981', // Verde esmeralda (ação, saúde)
-    contact: '#3B82F6', // Azul médio
-    footer: '#1E3A8A', // Azul marinho (autoridade) */
 
     navbar:'#0EA5E9',
-    services: "#d2d2d2", // Azul médio (calma, confiança)
-    about: '#f3f3f3', // Azul céu (esperança, clareza)
-    testimonials: '#f3f3f3', // Azul escuro (estabilidade)
-    faq: '#d2d2d2', // Azul céu
-    cta: '#f3f3f3', // Verde esmeralda (ação, saúde)
-    contact: '#f3f3f3', // Azul médio
-    footer: '#f3f3f3', // Azul marinho (autoridade)
+    services: "#d2d2d2",
+    about: '#f3f3f3',
+    testimonials: '#f3f3f3',
+    faq: '#d2d2d2',
+    cta: '#f3f3f3', 
+    contact: '#f3f3f3',
+    footer: '#f3f3f3', 
     
     // Cores principais
-    primary: '#b88b4a', // Azul escuro principal
-    secondary: '#4B5563', // Cinza para textos secundários
-    accent: 'black', // Azul muito claro para fundos (cor de destaque)
-    background: '#FFFFFF', // Branco puro (limpeza, esterilidade)
-    text: 'black', // Cinza muito escuro para textos principais
-    blog: '#d2d2d2', // Cinza azulado muito claro para fundo do blog
+    primary: '#b88b4a', 
+    secondary: '#4B5563', 
+    accent: 'black', 
+    background: '#FFFFFF', 
+    text: 'black', 
+    blog: '#d2d2d2',
     
     // Cores de estado
-    active: '#10B981', // Verde esmeralda para elementos ativos
+    active: '#10B981', 
   },
   foto_perfil: '/images/medico_perfil.png',
   foto_geral: '/images/medico_geral.jpg',
