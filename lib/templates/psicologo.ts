@@ -28,7 +28,8 @@ export const psicologoTemplate: TemplateConfig = {
     blog: false, // Ativar/desativar blog
     testimonials: true,
     faq: true,
-    newsletter: false
+    newsletter: false,
+    cta: true
   },
   hero: {
     title: 'Cuidando da sua <span>saúde mental</span> com acolhimento',
