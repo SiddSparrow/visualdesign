@@ -28,12 +28,14 @@ export const coachTemplate: TemplateConfig = {
   },
   foto_perfil: '/images/coach_perfil.jpg',
   foto_geral: '/images/coach_geral.jpg',
+  foto_faq:'/images/barbearia.jpg',
   features: {
     blog: true, // Ativar/desativar blog
     testimonials: true,
     faq: true,
     newsletter: false,
-    cta: false
+    cta: false,
+    location: false
   },
   hero: {
     title: 'Transforme sua <span>vida</span> e alcance seus <span>objetivos</span>',
@@ -146,5 +148,8 @@ export const coachTemplate: TemplateConfig = {
     subtitle: 'Dicas, estratégias e insights para seu crescimento pessoal e profissional.',
     openInNewPage: false,
     categories: ['Carreira', 'Produtividade', 'Liderança', 'Metas', 'Crescimento Pessoal']
+  },
+  contact:{
+    style: 'modern-dark'
   }
 }
