@@ -16,10 +16,10 @@ type LayoutStyle = 'stacked' | 'spaced' | 'connected'
 // ========== CONFIGURAÇÕES DE ESTILO ==========
 const FAQ_CONFIG = {
   // Estilo do card: 'bordered' | 'elevated' | 'glass' | 'minimal' | 'gradient' | 'neon'
-  cardStyle: 'bordered' as CardStyle, // MUDE AQUI!
+  cardStyle: 'neon' as CardStyle, // MUDE AQUI!
   
   // Tipo de ícone: 'chevron' | 'plus-minus' | 'circle' | 'none'
-  iconType: 'chevron' as IconType,
+  iconType: 'plus-minus' as IconType,
   
   // Layout: 'stacked' | 'spaced' | 'connected'
   layout: 'spaced' as LayoutStyle,
@@ -90,14 +90,9 @@ export default function FAQ() {
 
   const getFAQDescription = () => {
     switch(template.type) {
-      case 'coach':
-        return 'Tire suas dúvidas sobre o processo de coaching.'
+
       case 'barbeiro':
         return 'Respostas para as principais dúvidas.'
-      case 'medico':
-        return 'Informações importantes sobre consultas e atendimento.'
-      case 'psicologo':
-        return 'Tire suas dúvidas sobre o processo terapêutico.'
       default:
         return 'Tire suas dúvidas mais comuns.'
     }
@@ -131,7 +126,7 @@ export default function FAQ() {
         styleClasses = `bg-gradient-to-r from-white to-gray-50 border ${active ? 'border-current' : 'border-gray-200'} shadow-sm hover:shadow-md`
         break
       case 'neon':
-        styleClasses = `bg-gray-900 border ${active && FAQ_CONFIG.highlightActive ? 'border-current' : 'border-gray-800'} shadow-lg hover:shadow-xl`
+        styleClasses = ` border ${active && FAQ_CONFIG.highlightActive ? 'border-current' : 'border-gray-800'} shadow-lg hover:shadow-xl`
         break
     }
     
@@ -183,7 +178,7 @@ export default function FAQ() {
   }
 
   const getAnswerBgColor = () => {
-    if (FAQ_CONFIG.cardStyle === 'neon') return 'bg-gray-950'
+    if (FAQ_CONFIG.cardStyle === 'neon') return 'bg-gray-800'
     if (FAQ_CONFIG.cardStyle === 'minimal') return 'bg-gray-50/30'
     return 'bg-gray-50'
   }

@@ -70,14 +70,25 @@ export default function ContactForm() {
     setIsSubmitting(true)
     
     try {
-      console.log('Form data:', data)
-      await new Promise(resolve => setTimeout(resolve, 1000))
-      
+      // ========== OPÇÃO 1: ENVIAR PARA API ROUTE ==========
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+
+      if (!response.ok) {
+        throw new Error('Erro ao enviar mensagem')
+      }
+
       setSubmitStatus('success')
       reset()
       
       setTimeout(() => setSubmitStatus('idle'), 5000)
     } catch (error) {
+      console.error('Erro:', error)
       setSubmitStatus('error')
       setTimeout(() => setSubmitStatus('idle'), 5000)
     } finally {
@@ -153,7 +164,8 @@ export default function ContactForm() {
     return (
       <section className="py-20 bg-gray-900">
         <Container>
-          <div className="grid lg:grid-cols-2 gap-0 overflow-hidden rounded-3xl shadow-2xl max-w-6xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-0 overflow-hidden rounded-3xl shadow-2xl max-w-6xl mx-auto"
+          >
             {/* Imagem */}
             {CONTACT_CONFIG.showImage && CONTACT_CONFIG.imagePosition === 'left' && (
               <div className="relative min-h-[600px] lg:min-h-0">
@@ -268,12 +280,71 @@ export default function ContactForm() {
     return (
       <section className="py-20 bg-gray-900" style={{background:'#161616'}}>
         <Container>
-          <div className="max-w-2xl mx-auto">
-            <div className="text-center mb-12">
+          <div className="max-w-2xl mx-auto" >
+            <div className="text-center mb-12" >
               <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6 uppercase tracking-tight">
                 {CONTACT_CONFIG.sectionTitle}
               </h2>
             </div>
+            {CONTACT_CONFIG.showContactInfo && (
+            <div className="space-y-8" style={{marginBottom:'2rem'}}>
+              <div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-4" style={{ color: siteConfig.colors.text }}>
+                  Informações de Contato
+                </h3>
+                <p className="text-gray-600" style={{ color: siteConfig.colors.text }}>
+                  Estamos aqui para ajudar. Entre em contato!
+                </p>
+              </div>
+
+              <div className="space-y-4">
+                {CONTACT_CONFIG.showPhone && (
+                  <div className="flex items-start gap-4">
+                    <div 
+                      className="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0"
+                      style={{ backgroundColor: `${siteConfig.colors.primary}20` }}
+                    >
+                      <Phone className="w-6 h-6" style={{ color: siteConfig.colors.primary }} />
+                    </div>
+                    <div>
+                      <div className="font-semibold text-gray-900" style={{ color: siteConfig.colors.text }}>Telefone</div>
+                      <div className="text-gray-600">{siteConfig.phone}</div>
+                    </div>
+                  </div>
+                )}
+
+                {CONTACT_CONFIG.showEmail && (
+                  <div className="flex items-start gap-4">
+                    <div 
+                      className="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0"
+                      style={{ backgroundColor: `${siteConfig.colors.primary}20` }}
+                    >
+                      <Mail className="w-6 h-6" style={{ color: siteConfig.colors.primary }} />
+                    </div>
+                    <div>
+                      <div className="font-semibold text-gray-900" style={{ color: siteConfig.colors.text }}>Email</div>
+                      <div className="text-gray-600">{siteConfig.email}</div>
+                    </div>
+                  </div>
+                )}
+
+                {CONTACT_CONFIG.showAddress && (
+                  <div className="flex items-start gap-4">
+                    <div 
+                      className="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0"
+                      style={{ backgroundColor: `${siteConfig.colors.primary}20` }}
+                    >
+                      <MapPin className="w-6 h-6" style={{ color: siteConfig.colors.primary }} />
+                    </div>
+                    <div>
+                      <div className="font-semibold text-gray-900" style={{ color: siteConfig.colors.text }}>Localização</div>
+                      <div className="text-gray-600">{siteConfig.address}</div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
 
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
               <div>

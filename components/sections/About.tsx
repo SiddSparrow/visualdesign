@@ -11,43 +11,68 @@ export default function About() {
   }
 
   return (
-    <section id="about" className="py-20" style={{background:siteConfig.colors.about}}>
-      <Container>
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          <FadeIn direction="left">
-            {/* Container flexível */}
+    <section 
+      id="about" 
+      className="relative min-h-screen flex items-center py-20"
+      style={{background: siteConfig.colors.about}}
+    >
+      {/* Imagem de Fundo - Desktop */}
+      <div className="hidden lg:block absolute inset-0">
+        <Image 
+          src={template.foto_perfil || '/images/placeholder.jpg'}
+          alt="Foto Profissional"
+          fill
+          className="object-cover"
+          priority
+          sizes="100vw"
+        />
+        {/* Overlay gradiente */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent" />
+      </div>
 
-              {/* Imagem com largura máxima e altura automática */}
-              <div className="relative w-full max-w-md">
-                <div className="relative w-full h-auto">
-                  <Image 
-                    src={template.foto_perfil || '/images/placeholder.jpg'}
-                    alt="Foto Profissional"
-                    width={600}      // Largura desejada
-                    height={0}       // Altura será calculada automaticamente
-                    sizes="(max-width: 768px) 90vw, 40vw"
-                    className="w-full h-auto max-h-[500px] object-contain rounded-lg"
-                    priority
-                    style={{ 
-                      height: 'auto', // Mantém proporção
-                      objectFit: 'contain' // Não corta a imagem
-                    }}
-                  />
-                
-              </div>
+      <Container className="relative z-10">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          {/* Imagem - Mobile */}
+          <FadeIn direction="left" className="lg:hidden">
+            <div className="relative w-full max-w-md mx-auto">
+              <Image 
+                src={template.foto_perfil || '/images/placeholder.jpg'}
+                alt="Foto Profissional"
+                width={600}
+                height={0}
+                sizes="90vw"
+                className="w-full h-auto max-h-[500px] object-contain rounded-lg"
+                priority
+                style={{ 
+                  height: 'auto',
+                  objectFit: 'contain',
+                  maskImage: 'radial-gradient(circle, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%)',
+                  WebkitMaskImage: 'radial-gradient(circle, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%)'
+                }}
+              />
             </div>
           </FadeIn>
 
-          <div className="space-y-6">
+          {/* Espaço vazio à esquerda no desktop */}
+          <div className="hidden lg:block" />
+
+          {/* Conteúdo de Texto - Overlay no Desktop */}
+          <div className="space-y-6 lg:text-white">
             <FadeIn delay={0.2}>
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900" style={{color:siteConfig.colors.text}}>
+              <h2 
+                className="text-3xl md:text-4xl font-bold"
+                style={{color: siteConfig.colors.text}}
+              >
                 {template.about.title}
               </h2>
             </FadeIn>
             
             {template.about.description.map((paragraph, index) => (
               <FadeIn key={index} delay={0.3 + (index * 0.1)}>
-                <p className="text-lg text-gray-600" style={{color:siteConfig.colors.text}}>
+                <p 
+                  className="text-lg"
+                  style={{color: siteConfig.colors.text}}
+                >
                   {paragraph}
                 </p>
               </FadeIn>
@@ -69,8 +94,18 @@ export default function About() {
                           style={{ color: siteConfig.colors.text }}
                         />
                       </div>
-                      <div className="font-bold text-gray-900" style={{color:siteConfig.colors.text}}>{credential.title}</div>
-                      <div className="text-sm text-gray-600" style={{color:siteConfig.colors.text}}>{credential.description}</div>
+                      <div 
+                        className="font-bold"
+                        style={{color: siteConfig.colors.text}}
+                      >
+                        {credential.title}
+                      </div>
+                      <div 
+                        className="text-sm"
+                        style={{color: siteConfig.colors.text}}
+                      >
+                        {credential.description}
+                      </div>
                     </div>
                   </FadeIn>
                 )

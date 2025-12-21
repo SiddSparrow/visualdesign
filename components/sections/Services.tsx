@@ -2,216 +2,243 @@
 import Container from '@/components/ui/Container'
 import FadeIn from '@/components/ui/FadeIn'
 import { template, siteConfig } from '@/lib/site-config'
-import * as LucideIcons from 'lucide-react'
+import Image from 'next/image'
+import { ArrowRight } from 'lucide-react'
+import { useHandleWhatsAppClick } from '@/hooks/templateFunctions'
 
 // ========== TIPOS ==========
-type CardStyle = 'bordered' | 'elevated' | 'glass' | 'gradient' | 'minimal' | 'neon'
-type IconStyle = 'circle' | 'square' | 'rounded' | 'hexagon' | 'floating'
-type HoverEffect = 'lift' | 'glow' | 'scale' | 'tilt' | 'none'
+type LayoutStyle = 'grid-4' | 'grid-3' | 'masonry' | 'featured'
+type OverlayStyle = 'gradient' | 'dark' | 'colorful' | 'minimal'
+type HoverEffect = 'zoom' | 'slide' | 'fade' | 'lift'
 
-// ========== CONFIGURAÇÕES DE ESTILO ==========
-const SERVICES_CONFIG = {
-  // Estilo do card: 'bordered' | 'elevated' | 'glass' | 'gradient' | 'minimal' | 'neon'
-  cardStyle: 'glass' as CardStyle, // MUDE AQUI!
+// ========== CONFIGURAÇÕES ==========
+const BARBERSHOP_CONFIG = {
+  // Layout: 'grid-4' | 'grid-3' | 'masonry' | 'featured'
+  layout: 'grid-4' as LayoutStyle,
   
-  // Estilo do ícone: 'circle' | 'square' | 'rounded' | 'hexagon' | 'floating'
-  iconStyle: 'floating' as IconStyle,
+  // Estilo do overlay: 'gradient' | 'dark' | 'colorful' | 'minimal'
+  overlayStyle: 'gradient' as OverlayStyle,
   
-  // Efeito ao hover: 'lift' | 'glow' | 'scale' | 'tilt' | 'none'
-  hoverEffect: 'scale' as HoverEffect,
+  // Efeito no hover: 'zoom' | 'slide' | 'fade' | 'lift'
+  hoverEffect: 'zoom' as HoverEffect,
   
-  // Tamanho do ícone (em pixels)
-  iconSize: 56,
+  // Altura dos cards (em pixels)
+  cardHeight: 400,
   
-  // Espaçamento interno do card
-  cardPadding: 'normal', // 'compact' | 'normal' | 'spacious'
+  // Mostrar botão "Saiba mais"
+  showButton: true,
   
-  // Mostrar backdrop colorido atrás do ícone
-  iconBackdrop: true,
+  // Mostrar preço (se disponível)
+  showPrice: false,
   
-  // Animação do ícone no hover
-  iconAnimation: true,
+  // Animação nos cards
+  animateCards: true,
   
-  // Borda inferior colorida
-  accentBorder: false,
+  // Bordas arredondadas
+  roundedCorners: 'xl', // 'none' | 'lg' | 'xl' | '2xl' | '3xl'
+  
+  // ===== IMAGENS DOS SERVIÇOS =====
+  // Adicione os caminhos das suas imagens aqui
+  serviceImages: {
+    'corte': '/images/corte_1.jpg',
+    'barba': '/images/barba_1.jpg',
+    'corte-barba': {
+      main: '/images/corte_2.jpg',
+      secondary: '/images/barba_2.jpg'
+    },
+    'tratamento': '/images/tratamento.jpg',
+    'default': '/images/services/placeholder.jpg'
+  }
 }
 // ======================================================
 
-export default function Services() {
-  const getIcon = (iconName: string) => {
-    const icons = LucideIcons as any
-    return icons[iconName] || LucideIcons.HelpCircle
+export default function BarbershopServices() {
+  
+  // Mapeia os serviços com suas imagens
+  const getServiceImage = (serviceId: string, serviceTitle: string) => {
+    const images = BARBERSHOP_CONFIG.serviceImages as any
+    
+    // Tenta encontrar por ID exato
+    if (images[serviceId]) return images[serviceId]
+    
+    // Tenta encontrar por palavras-chave no título
+    const titleLower = serviceTitle.toLowerCase()
+    
+    if (titleLower.includes('corte') && titleLower.includes('barba')) {
+      return images['corte-barba']
+    }
+    if (titleLower.includes('corte')) return images['corte']
+    if (titleLower.includes('barba')) return images['barba']
+    if (titleLower.includes('tratamento')) return images['tratamento']
+    
+    return images['default']
   }
 
-  // Estilos do card baseado na configuração
-  const getCardClasses = () => {
-    const baseClasses = 'group h-full min-h-[260px] flex flex-col transition-all duration-300'
-    const paddingMap = {
-      compact: 'p-4',
-      normal: 'p-6',
-      spacious: 'p-8'
-    }
-    
-    let styleClasses = ''
-    
-    switch (SERVICES_CONFIG.cardStyle) {
-      case 'bordered':
-        styleClasses = 'rounded-xl border-2 border-gray-200 bg-white hover:shadow-xl'
-        break
-      case 'elevated':
-        styleClasses = 'rounded-2xl bg-white shadow-lg hover:shadow-2xl'
-        break
-      case 'glass':
-        styleClasses = 'rounded-2xl bg-white/60 backdrop-blur-md border border-gray-200/50 shadow-lg hover:shadow-xl hover:bg-white/80'
-        break
+  const getOverlayClasses = () => {
+    switch (BARBERSHOP_CONFIG.overlayStyle) {
       case 'gradient':
-        styleClasses = 'rounded-2xl bg-gradient-to-tr from-sky-100 to-blue-400 shadow-lg hover:shadow-xl border border-gray-100'
-        break
+        return 'bg-gradient-to-t from-black via-black/60 to-transparent'
+      case 'dark':
+        return 'bg-black/50'
+      case 'colorful':
+        return 'bg-gradient-to-br from-purple-900/80 via-black/70 to-blue-900/80'
       case 'minimal':
-        styleClasses = 'rounded-lg hover:bg-gray-50/50'
-        break
-      case 'neon':
-        styleClasses = 'rounded-2xl bg-gray-900 border border-gray-800 hover:shadow-2xl'
-        break
+        return 'bg-black/30'
     }
-    //let config = SERVICES_CONFIG.cardPadding;
-    return `${baseClasses} ${paddingMap[SERVICES_CONFIG.cardPadding as keyof typeof paddingMap]} ${styleClasses}`
   }
 
-  // Estilos do ícone
-  const getIconContainerClasses = () => {
-    const sizeMap = {
-      circle: 'rounded-full',
-      square: 'rounded-none',
-      rounded: 'rounded-xl',
-      hexagon: 'rounded-xl rotate-0',
-      floating: 'rounded-full shadow-lg'
-    }
-    
-    const animation = SERVICES_CONFIG.iconAnimation ? 'group-hover:scale-110 group-hover:rotate-3' : ''
-    
-    return `flex items-center justify-center mb-4 transition-all duration-300 ${sizeMap[SERVICES_CONFIG.iconStyle]} ${animation}`
-  }
-
-  // Efeito de hover
   const getHoverClasses = () => {
-    const effects = {
-      lift: 'hover:-translate-y-2',
-      glow: 'hover:ring-4 hover:ring-opacity-20',
-      scale: 'hover:scale-105',
-      tilt: 'hover:rotate-1',
-      none: ''
+    switch (BARBERSHOP_CONFIG.hoverEffect) {
+      case 'zoom':
+        return 'group-hover:scale-110'
+      case 'slide':
+        return 'group-hover:translate-y-[-10px]'
+      case 'fade':
+        return 'group-hover:opacity-70'
+      case 'lift':
+        return 'group-hover:scale-105'
     }
-    return effects[SERVICES_CONFIG.hoverEffect]
   }
 
-  // Estilo inline do card
-  const getCardStyle = (onHover: boolean = false) => {
-    const styles: React.CSSProperties = {}
-    
-    if (SERVICES_CONFIG.cardStyle === 'bordered' && onHover) {
-      styles.borderColor = siteConfig.colors.primary
+  const getGridClasses = () => {
+    switch (BARBERSHOP_CONFIG.layout) {
+      case 'grid-4':
+        return 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6'
+      case 'grid-3':
+        return 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'
+      case 'masonry':
+        return 'columns-1 md:columns-2 lg:columns-4 gap-6'
+      case 'featured':
+        return 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'
     }
-    
-    if (SERVICES_CONFIG.cardStyle === 'neon') {
-      styles.backgroundColor = '#0a0a0a'
-      if (onHover) {
-        styles.boxShadow = `0 0 30px ${siteConfig.colors.primary}40`
-      }
-    }
-    
-    if (SERVICES_CONFIG.hoverEffect === 'glow' && onHover) {
-      styles.boxShadow = `0 0 40px ${siteConfig.colors.primary}30`
-    }
-    
-    return styles
   }
 
-  // Cor do texto baseada no estilo
-  const getTextColor = () => {
-    return SERVICES_CONFIG.cardStyle === 'neon' ? '#ffffff' : siteConfig.colors.text
+  const roundedMap = {
+    'none': 'rounded-none',
+    'lg': 'rounded-lg',
+    'xl': 'rounded-xl',
+    '2xl': 'rounded-2xl',
+    '3xl': 'rounded-3xl'
   }
 
   return (
-    <section id="services" className="py-20" style={{background:siteConfig.colors.services}}>
+    <section id="services" className="py-20" style={{backgroundColor: siteConfig.colors.services}}>
       <Container>
         <FadeIn>
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4" style={{color:siteConfig.colors.text}}>
+            <h2 
+              className="text-3xl md:text-4xl font-bold mb-4"
+              style={{color: siteConfig.colors.text}}
+            >
               {siteConfig.services.title}
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto" style={{color:siteConfig.colors.text}}>
+            <p 
+              className="text-lg max-w-2xl mx-auto"
+              style={{color: siteConfig.colors.text}}
+            >
               {siteConfig.services.subtitle}
             </p>
           </div>
         </FadeIn>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className={getGridClasses()}>
           {template.services.services.map((service, index) => {
-            const IconComponent = getIcon(service.icon)
+            const serviceImage = getServiceImage(service.id, service.title)
+            const isDoubleImage = typeof serviceImage === 'object' && serviceImage.main
             
             return (
-              <FadeIn key={service.id} delay={0.1 * (index + 1)}>
+              <FadeIn key={service.id} delay={BARBERSHOP_CONFIG.animateCards ? 0.1 * (index + 1) : 0}>
                 <div 
-                  className={`${getCardClasses()} ${getHoverClasses()} ${SERVICES_CONFIG.accentBorder ? 'border-b-4' : ''}`}
-                  style={SERVICES_CONFIG.accentBorder ? { borderBottomColor: siteConfig.colors.primary } : {}}
-                  onMouseEnter={(e) => {
-                    Object.assign(e.currentTarget.style, getCardStyle(true))
-                  }}
-                  onMouseLeave={(e) => {
-                    Object.assign(e.currentTarget.style, getCardStyle(false))
-                  }}
+                  className={`group relative overflow-hidden ${roundedMap[BARBERSHOP_CONFIG.roundedCorners as keyof typeof roundedMap]} shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer`}
+                  style={{ height: BARBERSHOP_CONFIG.cardHeight }}
                 >
-                  {/* Ícone */}
-                  <div 
-                    className={getIconContainerClasses()}
-                    style={{ 
-                      width: SERVICES_CONFIG.iconSize,
-                      height: SERVICES_CONFIG.iconSize,
-                      backgroundColor: SERVICES_CONFIG.iconBackdrop 
-                        ? `${siteConfig.colors.primary}${SERVICES_CONFIG.cardStyle === 'neon' ? '40' : '20'}` 
-                        : 'transparent'
-                    }}
-                  >
-                    <IconComponent 
-                      className="transition-all duration-300" 
-                      style={{ 
-                        color: SERVICES_CONFIG.cardStyle === 'neon' 
-                          ? siteConfig.colors.primary 
-                          : siteConfig.colors.text,
-                        width: SERVICES_CONFIG.iconSize * 0.5,
-                        height: SERVICES_CONFIG.iconSize * 0.5
-                      }}
-                    />
-                  </div>
+                  {/* Imagem de Fundo */}
+                  {!isDoubleImage ? (
+                    <div className="absolute inset-0">
+                      <Image
+                        src={serviceImage as string}
+                        alt={service.title}
+                        fill
+                        className={`object-cover transition-all duration-700 ${getHoverClasses()}`}
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                      />
+                    </div>
+                  ) : (
+                    // Duas imagens sobrepostas para "Corte + Barba"
+                    <>
+                      <div className="absolute inset-0">
+                        <Image
+                          src={serviceImage.main}
+                          alt={service.title}
+                          fill
+                          className={`object-cover transition-all duration-700 ${getHoverClasses()}`}
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                        />
+                      </div>
+                      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                        <Image
+                          src={serviceImage.secondary}
+                          alt={service.title}
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                        />
+                      </div>
+                    </>
+                  )}
+
+                  {/* Overlay */}
+                  <div className={`absolute inset-0 ${getOverlayClasses()} transition-all duration-500`} />
 
                   {/* Conteúdo */}
-                  <h3 
-                    className="text-xl font-semibold mb-2 transition-colors duration-300"
-                    style={{color: getTextColor()}}
-                  >
-                    {service.title}
-                  </h3>
-                  <p 
-                    className="text-gray-600 transition-colors duration-300 flex-grow"
-                    style={{
-                      color: SERVICES_CONFIG.cardStyle === 'neon' 
-                        ? '#9ca3af' 
-                        : siteConfig.colors.text
-                    }}
-                  >
-                    {service.description}
-                  </p>
+                  <div className="absolute inset-0 p-6 flex flex-col justify-end text-white">
+                    {/* Indicador de serviço combo (se for duplo) */}
+                    {isDoubleImage && (
+                      <div className="absolute top-4 right-4">
+                        <span 
+                          className="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider"
+                          style={{ backgroundColor: siteConfig.colors.primary }}
+                        >
+                          Combo
+                        </span>
+                      </div>
+                    )}
 
-                  {/* Decoração extra para estilo neon */}
-                  {SERVICES_CONFIG.cardStyle === 'neon' && (
+                    {/* Título */}
+                    <h3 className="text-2xl md:text-3xl font-bold mb-3 transform group-hover:translate-y-[-5px] transition-transform duration-300">
+                      {service.title}
+                    </h3>
+
+                    {/* Descrição */}
+                    <p className="text-sm md:text-base text-white/90 mb-4 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                      {service.description}
+                    </p>
+
+                    {/* Preço (se habilitado e disponível) */}
+                    {BARBERSHOP_CONFIG.showPrice && (
+                      <div className="text-xl font-bold mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        Consulte nossos preços
+                      </div>
+                    )}
+
+                    {/* Botão */}
+                    {BARBERSHOP_CONFIG.showButton && (
+                      <button 
+                        onClick={useHandleWhatsAppClick}
+                        className="flex items-center gap-2 font-semibold uppercase tracking-wider text-sm opacity-0 group-hover:opacity-100 transform translate-x-[-20px] group-hover:translate-x-0 transition-all duration-300"
+                        style={{ color: siteConfig.colors.primary }}
+                      >
+                        Consulte nossos preços
+                        <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                      </button>
+                    )}
+
+                    {/* Barra decorativa */}
                     <div 
-                      className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-                      style={{
-                        background: `radial-gradient(circle at 50% 0%, ${siteConfig.colors.primary}15, transparent 70%)`
-                      }}
+                      className="absolute bottom-0 left-0 h-1 w-0 group-hover:w-full transition-all duration-500"
+                      style={{ backgroundColor: siteConfig.colors.primary }}
                     />
-                  )}
+                  </div>
                 </div>
               </FadeIn>
             )

@@ -30,18 +30,12 @@ export default async function Home() {
       <Navbar />
       <Hero />
       <Services />
-      {/* <SectionDivider type="wave" toColor="#F9FAFB" fromColor='#F9FAFB' background='white'/> */}
       <About />
-      {/* <SectionDivider type="wave" toColor='black' fromColor='transparent' background='#F9FAFB'/> */}
-      
-      {/* Use && para renderização condicional no JSX */}
       {siteConfig.features.blog && (
         <Blog 
           posts={posts} 
-         // categories={categories}
         />
       )}
-      {/* <SectionDivider type="wave" toColor={siteConfig.colors.testimonials} fromColor='' background={siteConfig.colors.blog}/> */}
       <Testimonials />
       <FAQ />
       <CTA />

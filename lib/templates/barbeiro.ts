@@ -26,7 +26,7 @@ export const barbeiroTemplate: TemplateConfig = {
     // Estados
     active: '#C0843D',
   },
-  foto_perfil: '/images/barbeiro_perfil.jpg',
+  foto_perfil: '/images/about.jpg',
   foto_geral: '/images/barbeiro_geral.jpg',
   foto_faq:'/images/barbearia.jpg',
   features: {
@@ -74,15 +74,30 @@ export const barbeiroTemplate: TemplateConfig = {
     ]
   },
   about: {
-    title: 'Sobre a Barbearia',
+    title: "Sobre a Corleone's",
     description: [
-      'Há mais de [X] anos no mercado, oferecemos uma experiência única que combina tradição e modernidade.',
-      'Nossa equipe é formada por profissionais qualificados, sempre atualizados com as últimas tendências e técnicas.'
+      'Há mais de 15 anos no mercado de São Paulo, oferecemos uma experiência única que combina tradição e modernidade. Desde 2009, preservamos a arte da barbearia clássica enquanto incorporamos as últimas tendências masculinas.',
+      'Nossa equipe é formada por 8 barbeiros qualificados, todos certificados e com formação contínua no SENAC e cursos especializados. Cada profissional possui no mínimo 5 anos de experiência e passa por treinamentos trimestrais para dominar as técnicas mais recentes.'
     ],
     credentials: [
-      { icon: 'Award', title: '[X] Anos', description: 'De tradição' },
-      { icon: 'Star', title: '5.0', description: 'Avaliação no Google' },
-      { icon: 'Users', title: '5000+', description: 'Clientes satisfeitos' }
+      { icon: 'Award', title: '15 Anos', description: 'De tradição e excelência desde 2009' },
+      { icon: 'Star', title: '5.0', description: 'Avaliação no Google (1.247 avaliações)' },
+      { icon: 'Users', title: '10.500+', description: 'Clientes fiéis cadastrados' },
+      { 
+        icon: "Scissors", 
+        title: "45.000+", 
+        description: "Cortes realizados com perfeição" 
+      },
+      { 
+        icon: "MapPin", 
+        title: "3 Unidades", 
+        description: "São Paulo, Campinas e Santos" 
+      },
+      { 
+        icon: "Heart", 
+        title: "100%", 
+        description: "Satisfação garantida ou cortamos novamente" 
+      }
     ]
   },
   testimonials: {
