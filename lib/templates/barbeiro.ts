@@ -1,7 +1,7 @@
 import { TemplateConfig } from '@/types/templates'
 
 export const barbeiroTemplate: TemplateConfig = {
-  name: 'Barbearia [Nome]',
+  name: 'Corleone Barbers',
   logo: '', // Adicionei logo para consistência
   type: 'barbeiro',
   colors: {
@@ -34,7 +34,8 @@ export const barbeiroTemplate: TemplateConfig = {
     testimonials: true,
     faq: true,
     newsletter: false,
-    cta: false
+    cta: false,
+    location: true
   },
   hero: {
     title: 'Estilo e <span>tradição</span> em cada corte',
@@ -147,5 +148,8 @@ export const barbeiroTemplate: TemplateConfig = {
     subtitle: 'Artigos sobre tendências masculinas, cuidados com a barba e muito mais.',
     openInNewPage: false,
     categories: ['Cortes', 'Barba', 'Estilo', 'Cuidados Masculinos', 'Produtos']
+  },
+  contact:{
+    style: 'modern-dark'
   }
 }

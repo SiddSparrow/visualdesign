@@ -36,7 +36,8 @@ export const medicoTemplate: TemplateConfig = {
     testimonials: true,
     faq: true,
     newsletter: false,
-    cta:false
+    cta:false,
+    location:true,
   },
   hero: {
     title: 'Cuidando da sua saúde com <span>excelência</span> e <span>dedicação</span>',
@@ -160,5 +161,8 @@ export const medicoTemplate: TemplateConfig = {
     subtitle: 'Informações confiáveis e atualizadas sobre prevenção, tratamentos e bem-estar.',
     openInNewPage: false,
     categories: ['Prevenção', 'Tratamentos', 'Dicas de Saúde', 'Novidades Médicas']
+  },
+  contact:{
+    style: 'glass'
   }
 }

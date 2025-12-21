@@ -62,7 +62,7 @@ export default function LocationWidget({
   className = ''
 }: LocationWidgetProps) {
   const [isHovered, setIsHovered] = useState(false)
-
+ if(!siteConfig.features.location)return null;
   // URL do Google Maps Embed (SEM API KEY - GRATUITO)
   const getMapEmbedUrl = () => {
     // Usa o formato de iframe público do Google Maps (sem necessidade de API key)
@@ -73,7 +73,7 @@ export default function LocationWidget({
   const getDirectionsUrl = () => {
     return `https://www.google.com/maps/dir/?api=1&destination=${latitude},${longitude}`
   }
-
+  const infoCard = false;
   // Estilos do card
   const getCardClasses = () => {
     const base = 'h-full transition-all duration-300'
@@ -239,9 +239,11 @@ export default function LocationWidget({
           <MapComponent />
           
           {/* Card flutuante */}
+          {infoCard &&
           <div className="absolute bottom-8 left-1/2 -translate-x-1/2 w-full max-w-md px-4 lg:left-8 lg:translate-x-0">
             <InfoCard />
-          </div>
+          </div>}
+          
         </div>
       </div>
     )
@@ -251,7 +253,8 @@ export default function LocationWidget({
   return (
     <div className={`${getLayoutClasses()} ${className}`}>
       {layout === 'map-top' && <MapComponent />}
-      <InfoCard />
+      {infoCard &&<InfoCard />}
+      
       {(layout === 'side-by-side' || layout === 'map-bottom') && <MapComponent />}
     </div>
   )

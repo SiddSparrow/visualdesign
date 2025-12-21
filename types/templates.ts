@@ -1,3 +1,4 @@
+
 import { s } from 'framer-motion/client';
 import { LucideIcon } from 'lucide-react'
 import { StringFormNode } from 'sanity';
@@ -33,7 +34,8 @@ export interface TemplateConfig {
     testimonials: boolean,
     faq: boolean,
     newsletter: boolean,
-    cta:boolean
+    cta:boolean,
+    location:boolean
   },
   hero: {
     title: string
@@ -71,6 +73,9 @@ export interface TemplateConfig {
     title: string,
     subtitle: string
     wppText: string
+  }
+  contact:{
+    style: string
   }
 }
 

@@ -3,7 +3,7 @@ import { TemplateType } from '@/types/templates'
 import { getTemplate } from './templates'
 import { features } from 'process'
 // Opções: 'medico' | 'psicologo' | 'barbeiro' | 'coach'
-export const CURRENT_TEMPLATE: TemplateType = 'barbeiro' 
+export const CURRENT_TEMPLATE: TemplateType = 'medico' 
 
 const template = getTemplate(CURRENT_TEMPLATE)
 
@@ -25,7 +25,8 @@ export const siteConfig: SiteConfig = {
   Testimonials: template.testimonials,
   cta: template.cta,
   faq: template.faq,
-  services: template.services
+  services: template.services,
+  contact: template.contact
 }
 
 export { template }

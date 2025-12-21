@@ -1,3 +1,4 @@
+
 import { TemplateConfig } from '@/types/templates'
 
 export const psicologoTemplate: TemplateConfig = {
@@ -30,7 +31,8 @@ export const psicologoTemplate: TemplateConfig = {
     testimonials: true,
     faq: true,
     newsletter: false,
-    cta: true
+    cta: true,
+    location:false
   },
   hero: {
     title: 'Cuidando da sua <span>saúde mental</span> com acolhimento',
@@ -143,5 +145,8 @@ export const psicologoTemplate: TemplateConfig = {
     subtitle: 'Informações e dicas para o seu bem-estar emocional.',
     openInNewPage: false,
     categories: ['Ansiedade', 'Depressão', 'Relacionamentos', 'Autoestima', 'Crescimento Pessoal']
+  },
+  contact:{
+    style: 'glass'
   }
 }

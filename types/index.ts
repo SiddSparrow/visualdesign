@@ -35,6 +35,7 @@ export interface SiteConfig {
     testimonials: boolean
     newsletter: boolean
     cta:boolean
+    location:boolean
   }
   Testimonials:{
     title: string
@@ -54,6 +55,9 @@ export interface SiteConfig {
     title: string
     subtitle: string
     services: Service[]
+  }
+  contact:{
+    style:string
   }
 }
 
