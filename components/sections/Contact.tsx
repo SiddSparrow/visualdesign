@@ -9,10 +9,10 @@ export default function Contact() {
     <section id="contact" className="py-20" style={{backgroundColor: siteConfig.colors.contact}}>
       <Container>
         <Location
-          address="Av. Paulista, 1578"
-          city="São Paulo - SP"
-          latitude={-23.5614}
-          longitude={-46.6558}
+          address="Rua Buenos Aires, 65"
+          city="Rio de Janeiro - RJ"
+          latitude={-22.902584}
+          longitude={-43.178468}
           placeName="MASP"
           mapStyle='roadmap'
           layout='overlay'
