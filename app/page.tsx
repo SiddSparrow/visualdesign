@@ -10,6 +10,7 @@ import Contact from '@/components/sections/Contact'
 import Footer from '@/components/sections/Footer'
 import WhatsAppButton from '@/components/ui/WhatsAppButton'
 import Blog from '@/components/sections/Blog'
+import PhotoGallery from '@/components/sections/PhotoGallery'
 import { siteConfig, template } from '@/lib/site-config'
 import SectionDivider from '@/components/ui/SectionDivider'
 
@@ -31,6 +32,7 @@ export default async function Home() {
       <Hero />
       <Services />
       <About />
+      <PhotoGallery/> 
       {siteConfig.features.blog && (
         <Blog 
           posts={posts} 
