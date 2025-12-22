@@ -13,7 +13,7 @@ export default function About() {
   return (
     <section 
       id="about" 
-      className="relative min-h-screen flex items-center py-20"
+      className="relative min-h-screen flex items-center py-20 overflow-hidden"
       style={{background: siteConfig.colors.about}}
     >
       {/* Imagem de Fundo - Desktop */}
@@ -34,7 +34,7 @@ export default function About() {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Imagem - Mobile */}
           <FadeIn direction="left" className="lg:hidden">
-            <div className="relative w-full max-w-md mx-auto">
+            <div className="relative w-full max-w-md mx-auto overflow-hidden">
               <Image 
                 src={template.foto_perfil || '/images/placeholder.jpg'}
                 alt="Foto Profissional"
@@ -45,9 +45,7 @@ export default function About() {
                 priority
                 style={{ 
                   height: 'auto',
-                  objectFit: 'contain',
-                  maskImage: 'radial-gradient(circle, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%)',
-                  WebkitMaskImage: 'radial-gradient(circle, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%)'
+                  objectFit: 'contain'
                 }}
               />
             </div>
