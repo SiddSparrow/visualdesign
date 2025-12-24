@@ -53,12 +53,12 @@ export default function Hero() {
             </div>
             <Container className="relative z-10">
                 <div className="grid md:grid-cols-2 gap-12 items-center min-h-[80vh]">
-                    <div className="space-y-8">
+                    <div className="space-y-8 pl-0 md:pl-10 lg:pl-16 xl:pl-28">
                         <FadeIn delay={0.1}>
                             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight drop-shadow-lg">
                                 {useProcessTitle(template.hero.title, {
                                     defaultColor: siteConfig.colors.text,
-                                    spanColor: siteConfig.colors.primary
+                                    spanColor: "#E5E5E5"
                                 })}
                             </h1>
                         </FadeIn>
@@ -66,7 +66,7 @@ export default function Hero() {
                         <FadeIn delay={0.2}>
                             <p className="text-lg md:text-xl text-gray-200 max-w-xl">
                                 {useProcessTitle(template.hero.subtitle, {
-                                    defaultColor: siteConfig.colors.text,
+                                    defaultColor: siteConfig.colors.text, 
                                     spanColor: siteConfig.colors.accent
                                 })}
                             </p>
@@ -75,11 +75,12 @@ export default function Hero() {
                         <FadeIn delay={0.3}>
                             <div className="flex flex-col sm:flex-row gap-4">
                                 <Button
-                                    size="lg"
+                                    
                                     /* onClick={handleAgendarClick} */
                                     onClick={useHandleWhatsAppClick}
-                                    style={{ backgroundColor: siteConfig.colors.primary }}
-                                    className="hover:opacity-90 transition transform hover:scale-105 duration-200 shadow-lg"
+                                    style={{ backgroundColor: "#E5E5E5" ,color:"black", borderRadius:'5px', opacity:'80%' }}
+                                    className="hover:opacity-90 transition transform hover:scale-105 duration-200 shadow-lg w-2/3 md:w-3xs"
+
                                 >
                                     {template.hero.ctaPrimary}
                                 </Button>

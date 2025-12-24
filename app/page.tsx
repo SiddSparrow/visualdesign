@@ -31,7 +31,7 @@ export default async function Home() {
       <Navbar />
       <Hero />
       <Services />
-      <About />
+      {/* <About /> */}
       <PhotoGallery/> 
       {siteConfig.features.blog && (
         <Blog 

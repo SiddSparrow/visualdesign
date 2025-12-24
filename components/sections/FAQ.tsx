@@ -59,7 +59,7 @@ const FAQ_CONFIG = {
   sideImageButtonText: 'FALAR COM ATENDIMENTO',
   
   // Link do botão (pode ser WhatsApp, formulário, etc)
-  sideImageButtonLink: 'https://wa.me/5521999999999',
+  sideImageButtonLink: 'https://wa.me/5521985551290',
   
   // Posição da imagem: 'right' | 'left'
   sideImagePosition: 'right' as 'right' | 'left',
@@ -91,7 +91,7 @@ export default function FAQ() {
   const getFAQDescription = () => {
     switch(template.type) {
 
-      case 'barbeiro':
+      case 'arquiteto':
         return 'Respostas para as principais dúvidas.'
       default:
         return 'Tire suas dúvidas mais comuns.'
@@ -219,8 +219,7 @@ export default function FAQ() {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg"
                   style={{ 
-                    backgroundColor: siteConfig.colors.primary,
-                    color: 'white'
+                    backgroundColor: "#E5E5E5", color: "black"
                   }}
                 >
                   {FAQ_CONFIG.sideImageButtonText}

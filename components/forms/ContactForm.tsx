@@ -26,7 +26,7 @@ const CONTACT_CONFIG = {
   
   // ===== CONFIGURAÇÕES DE IMAGEM (para 'split-image') =====
   showImage: true,
-  imageUrl: '/images/contact-photo.jpg', // Coloque sua imagem aqui
+  imageUrl: '/images/contact.png', // Coloque sua imagem aqui
   imagePosition: 'left' as 'left' | 'right',
   imageOverlay: true, // Sobreposição escura na imagem
   
@@ -162,9 +162,10 @@ export default function ContactForm() {
   // Layout Split Image
   if (CONTACT_CONFIG.style === 'split-image') {
     return (
-      <section className="py-20 bg-gray-900">
+      <section className="py-20 bg-gray-900" style={{backgroundColor:"transparent"}}>
         <Container>
           <div className="grid lg:grid-cols-2 gap-0 overflow-hidden rounded-3xl shadow-2xl max-w-6xl mx-auto"
+          style={{backgroundColor:"#292929"}}
           >
             {/* Imagem */}
             {CONTACT_CONFIG.showImage && CONTACT_CONFIG.imagePosition === 'left' && (
@@ -182,11 +183,11 @@ export default function ContactForm() {
             )}
 
             {/* Formulário */}
-            <div className="bg-gray-900 p-8 lg:p-12">
+            <div className="bg-gray-900 p-8 lg:p-12" style={{backgroundColor:'#272727'}}>
               <div className="mb-8">
-                <div className="inline-block px-4 py-1 bg-yellow-400 text-gray-900 text-sm font-bold mb-4 rounded">
+                {/* <div className="inline-block px-4 py-1 bg-yellow-400 text-gray-900 text-sm font-bold mb-4 rounded">
                   {CONTACT_CONFIG.sectionTitle.split(' ')[0]}
-                </div>
+                </div> */}
                 <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
                   {CONTACT_CONFIG.sectionTitle}
                 </h2>
@@ -242,6 +243,7 @@ export default function ContactForm() {
                   type="submit"
                   disabled={isSubmitting}
                   className="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-4 rounded-lg transition-all duration-300 hover:scale-105 uppercase tracking-wider"
+                  style={{backgroundColor: "#E5E5E5", color: "black"}}
                 >
                   {isSubmitting ? 'Enviando...' : CONTACT_CONFIG.submitButtonText}
                 </button>

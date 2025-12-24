@@ -17,7 +17,7 @@ type ShadowLevel = 'none' | 'sm' | 'md' | 'lg'
 // ========== CONFIGURAÇÕES DE ESTILO DA NAVBAR ==========
 const NAVBAR_CONFIG = {
   // Estilo principal: 'solid' | 'transparent' | 'glass' | 'gradient'
-  style: 'glass' as NavbarStyle, // MUDE AQUI!
+  style: 'transparent' as NavbarStyle, // MUDE AQUI!
 
   // Blur (apenas para 'transparent' e 'glass'): 'none' | 'sm' | 'md' | 'lg'
   blur: 'md' as BlurLevel,
@@ -97,7 +97,7 @@ export default function Navbar() {
         styles.background = `linear-gradient(135deg, ${siteConfig.colors.navbar} 0%, ${siteConfig.colors.primary}20 100%)`
         break
     }
-
+    styles.backgroundColor = "none"
     return styles
   }
 
@@ -140,7 +140,7 @@ export default function Navbar() {
               <Image
                 src={siteConfig.logo}
                 alt="Logo"
-                width={70}
+                width={180}
                 height={100}
                 className={`transition-all duration-300 ${NAVBAR_CONFIG.shrinkOnScroll && scrolled ? 'scale-90' : 'scale-100'}`}
                 priority
@@ -149,7 +149,7 @@ export default function Navbar() {
           )}
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex space-x-8">
+          <div className="hidden md:flex space-x-16">
             {menuItems.map((item, index) => (
               <motion.a
                 key={item.href}
@@ -176,17 +176,6 @@ export default function Navbar() {
             <div className="flex flex-col sm:flex-row gap-4"></div>
 
           </div>
-          <Button
-            
-            /* onClick={handleAgendarClick} */
-            onClick={useHandleWhatsAppClick}
-            style={{ backgroundColor: siteConfig.colors.primary }}
-            className="hover:opacity-90 transition transform hover:scale-105 duration-200 shadow-lg h-3/4"
-          >
-            {template.hero.ctaPrimary}
-          </Button>
-
-          {/* Mobile Menu Button */}
 
           <button
             className="md:hidden transition-transform duration-200 hover:scale-110"

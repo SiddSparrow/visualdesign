@@ -8,6 +8,8 @@ export default function Contact() {
   return (
     <section id="contact" className="py-20" style={{backgroundColor: siteConfig.colors.contact}}>
       <Container>
+        <ContactForm />
+        <div style={{margin:'2rem'}}></div>
         <Location
           address="Rua Buenos Aires, 65"
           city="Rio de Janeiro - RJ"
@@ -17,9 +19,6 @@ export default function Contact() {
           mapStyle='roadmap'
           layout='overlay'
           />
-          
-          <div style={{margin:'2rem'}}></div>
-        <ContactForm />
       </Container>
     </section>
   )

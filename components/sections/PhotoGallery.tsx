@@ -3,10 +3,12 @@
 import { useState } from 'react'
 import Container from '@/components/ui/Container'
 import FadeIn from '@/components/ui/FadeIn'
-import { siteConfig } from '@/lib/site-config'
+import { template, siteConfig } from '@/lib/site-config'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, ChevronLeft, ChevronRight, ZoomIn, ExternalLink } from 'lucide-react'
+import Button from '../ui/Button'
+import { useHandleWhatsAppClick  } from '@/hooks/templateFunctions'
 
 // ========== TIPOS ==========
 type GalleryMode = 'carousel' | 'grid' | 'masonry' | 'cards'
@@ -19,7 +21,7 @@ const GALLERY_CONFIG = {
   mode: 'cards' as GalleryMode, // MUDE AQUI!
   
   // Colunas (para grid/masonry): 2 | 3 | 4 | 5
-  columns: 2 as GridColumns,
+  columns: 3 as GridColumns,
   
   // Aspect ratio das imagens: 'square' | 'portrait' | 'landscape' | 'auto'
   aspectRatio: 'landscape' as AspectRatio,
@@ -37,10 +39,10 @@ const GALLERY_CONFIG = {
   animateOnScroll: true,
   
   // Espaçamento entre fotos
-  spacing: 'normal' as 'tight' | 'normal' | 'relaxed',
+  spacing: 'tight' as 'tight' | 'normal' | 'relaxed',
   
   // Bordas arredondadas
-  rounded: 'lg' as 'none' | 'sm' | 'lg' | 'xl' | '2xl',
+  rounded: 'sm' as 'none' | 'sm' | 'lg' | 'xl' | '2xl',
   
   // ===== PARA MODO 'CARDS' =====
   showCardTitle: true,
@@ -48,8 +50,8 @@ const GALLERY_CONFIG = {
   cardStyle: 'overlay' as 'overlay' | 'below',
   
   // ===== TEXTOS =====
-  sectionTitle: 'Conheça a nossa equipe',
-  sectionSubtitle: 'Temos os melhores especialistas',
+  sectionTitle: 'Conheça nosso portifólio',
+  sectionSubtitle: '',
 }
 // ======================================================
 
@@ -69,38 +71,42 @@ interface GalleryItem {
 const GALLERY_DATA: GalleryItem[] = [
   {
     id: '1',
-    image: '/images/fernando/fernando2.jpeg',
-    title: 'Fernando',
-    description: 'Especialista em cortes',
-    category: 'Corte',
+    image: '/images/c/c_1.png',
+    title: 'Imóvel A',
+    description: 'Descrição do imóvel',
+    category: '',
     images: [
-      '/images/fernando/fernando_3.jpeg',
-      '/images/fernando/fernando_4.jpeg',
+      '/images/c/c_1.png',
+      '/images/c/c_2.png',
+      '/images/c/c_3.png',
     ]
   },
   {
     id: '2',
-    image: '/images/juliano/juliano2.jpg',
-    title: 'Juliano',
-    description: 'Especialista em barbas',
-    category: 'Barba',
+    image: '/images/d/d_1.png',
+    title: 'Imóvel B',
+    description: 'Descrição do imóvel',
+    category: '',
     images: [
-      '/images/juliano/juliano_3.jpg',
-      '/images/juliano/juliano_4.jpg',
+      '/images/d/d_1.png',
+      '/images/d/d_2.png',
+      '/images/d/d_3.png'
     ]
   },
-  /*{
+  {
     id: '3',
-    image: '/images/juliano/juliano_1.jpeg',
-    title: 'Henrique',
-    description: 'Especialista em tratamento capilar',
-    category: 'Tratamento',
+    image: '/images/e/e_1.png',
+    title: 'Imóvel C',
+    description: 'Descrição do imóvel',
+    category: '',
     images: [
-      '/images/juliano/juliano_1.jpeg',
-      '/images/juliano/juliano_2.jpg',
+      '/images/e/e_1.png',
+      '/images/e/e_2.png',
+      '/images/e/e_3.png',
+      '/images/e/e_4.png'
     ]
   },
-   {
+   /*{
     id: '4',
     image: '/images/gallery/project-4.jpg',
     title: 'Loft Industrial',
@@ -212,6 +218,17 @@ export default function PhotoGallery() {
           </FadeIn>
 
           {renderGallery()}
+          <FadeIn delay={0.1}>
+                    <div className="flex justify-center mt-12">
+                      <Button
+                        onClick={useHandleWhatsAppClick}
+                        style={{ backgroundColor: "#E5E5E5", color: "black", borderRadius: '5px', opacity: '80%' }}
+                        className="hover:opacity-90 transition transform hover:scale-105 duration-200 shadow-lg px-8 py-4 text-lg"
+                      >
+                        Quero iniciar meu projeto
+                      </Button>
+                    </div>
+                  </FadeIn>
         </Container>
       </section>
 

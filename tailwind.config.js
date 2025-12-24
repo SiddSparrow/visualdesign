@@ -9,6 +9,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        fontFamily: {
+        'sans': ['Inter', 'sans-serif'], // Substitui fonte padrão
+        'serif': ['Playfair Display', 'serif'],
+        'syne': ['Syne', 'sans-serif'],
+      },
         // Adicione opacidades para o preto
         black: {
           50: 'rgba(0, 0, 0, 0.5)',

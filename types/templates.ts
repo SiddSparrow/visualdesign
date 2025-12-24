@@ -3,7 +3,7 @@ import { s } from 'framer-motion/client';
 import { LucideIcon } from 'lucide-react'
 import { StringFormNode } from 'sanity';
 
-export type TemplateType = 'barbeiro'
+export type TemplateType = 'arquiteto'
 
 export interface TemplateConfig {
   name: string
