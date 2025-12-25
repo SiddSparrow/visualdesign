@@ -30,7 +30,7 @@ export const arquitetoTemplate: TemplateConfig = {
   foto_geral: '/images/hero.png',
   foto_faq: '/images/FAQ_2.png',
   features: {
-    blog: true, // Ativar/desativar blog
+    blog: false, // Ativar/desativar blog
     testimonials: true,
     faq: true,
     newsletter: false,
