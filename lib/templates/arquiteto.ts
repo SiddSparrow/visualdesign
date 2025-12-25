@@ -156,7 +156,7 @@ export const arquitetoTemplate: TemplateConfig = {
   cta: {
     title: 'Pronto para transformar seu espaço sob medida?',
     subtitle: 'Somos especialistas em projetos de arquitetura únicos e personalizados, feitos sob medida para você. Garanta um design exclusivo que combinasofisticação, funcionalidade e inovação.',
-    wppText: 'Olá! Gostaria de agendar um horário na barbearia.'
+    wppText: 'Olá! Gostaria de fazer um orçamento.'
   },
   faq: {
     text: 'Tire suas dúvidas sobre projetos, prazos e nosso processo de trabalho.',
